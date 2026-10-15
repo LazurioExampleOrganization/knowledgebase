@@ -1,73 +1,59 @@
-# AgentMint Knowledgebase — instrukce pro agenty
+# Knowledgebase: rules for agents
 
-Tento repozitář je trvalá znalostní vrstva AgentMintu. Platí pro celý scope
-`AgentMint/modules/knowledgebase/` a doplňuje root pravidla workspace.
+This repository is the knowledgebase module of Lazurio Example Organization.
+These rules add to the Organization root `AGENTS.md`.
 
-## Role repozitáře
+## Scope
 
-- `modules/knowledgebase/` drží strategii, guardrails, lessons learned,
-  rozhodovací logiku a stabilní slovník AgentMintu.
-- Modul je upstream-compatible fork
-  upstream Lazurio knowledgebase šablony; lokální remote `upstream`
-  slouží pro budoucí přenos obecných vylepšení šablony.
-- Do modulu patří až zobecněná znalost. Surové zdroje, longlisty a mechanism
-  scans patří do `modules/research/`.
-- Experiment specs, run logy, metriky a stop/scale rozhodnutí patří do
-  `modules/experiments/`; sem přenes až lesson learned.
-- Nepřenášej cizí data, placený obsah, secrets, účty platforem ani identitu
-  jiných firem.
+- One repository is one module: `lazurio.module.json` sits in the root and the
+  App lives in `app/v2/`.
+- The slot, Teams and access are declared in the Organization root's
+  `modules.manifest.json`. Change them with a pull request to the root, not
+  here.
+- One change, one worktree, one branch, one pull request. The primary checkout
+  stays on `main`.
 
-## Povinné čtení pro větší práci
+## What belongs here
 
-- `README.md`
-- `ARCHITECTURE.md`
-- `TODO.md`
-- `TEMPLATE.md`
+- Generalised, durable knowledge: strategy, guardrails, lessons learned,
+  decision logic and vocabulary.
+- Raw sources, longlists and mechanism scans belong in the `research` module;
+  experiment specs, run logs, metrics and stop or scale decisions belong in
+  `experiments`. Bring only the lesson learned here and link to its evidence.
+- Never bring in other companies' data, paid content, secrets, platform
+  accounts or identity.
 
-Za větší práci se považuje hlavně změna source-of-truth hranic, změna
-metadata contractu, změna navigační hierarchie nebo změna runtime stacku.
+## Content rules
 
-## Source of truth
+- Add pages only to `data/v2/docs/`. Every page declares its `title` in
+  frontmatter.
+- Keep the navigation in `data/v2/sidebar.ts` by hand; every entry must point
+  at an existing page of the default locale (the tests check it).
+- When you change a source-of-truth boundary, update `ARCHITECTURE.md` in the
+  same pull request.
+- No machine-specific absolute paths in documents.
 
-Kanonické knowledge stránky žijí v:
+## Lazurio Module Standard
 
-- `data/v2/docs/cs`
-- `data/v2/docs/en`
+- `dev` starts one Astro server and nothing else; `prepare:app` (`astro sync`)
+  is the preparation and `check:prepared` checks it.
+- The App reads its host and port only from
+  `LAZURIO_RUNTIME_LISTENER_APP_HOST` and `_PORT` through `@lazurio/module-kit`
+  and exits with code 2 without them. The port lives only in
+  `lazurio.module.json`.
+- No `.env*` files, secrets in the repository or imports from outside this
+  repository.
+- A deviation is fixed in the module, never with an exception in the
+  Launchpad.
 
-Kanonická navigace žije v:
+## Verification before a pull request
 
-- `data/v2/sidebar.ts`
-
-Root dokumenty (`README.md`, `AGENTS.md`, `ARCHITECTURE.md`, `TODO.md`,
-`TEMPLATE.md`) jsou governance dokumenty o modulu a původu ve šabloně.
-Nepoužívej je jako druhý obsahový corpus knowledgebase.
-
-## Pracovní pravidla
-
-- Nové stránky přidávej pouze do `data/v2/docs`.
-- Sidebar udržuj ručně v `data/v2/sidebar.ts`.
-- `app/v1` ani `editor/v1` neobnovuj. Při synchronizaci staršího forku použij
-  verzované nástroje v `migrations/v2/` a zachovej retirement record.
-- Pokud změníš source-of-truth hranice, uprav zároveň `ARCHITECTURE.md` a
-  `TODO.md`.
-- V dokumentech nepoužívej machine-local absolutní cesty jako `/Users/...`.
-- Každé pravidlo formuluj jako vlastní AgentMint princip, ne jako opsanou
-  strategii jiné firmy.
-- Pokud poznatek vznikl z konkrétního experimentu nebo research sprintu,
-  odkazuj na jeho evidenci.
-- Při přenosu změn z `upstream` nepřepisuj AgentMint obsah zpět na obecnou
-  šablonu.
-
-## Ověření
-
-Po změně runtime nebo docs struktury ověř:
-
-```bash
+```sh
 cd app/v2
-bun install
-bun test
+bun install --frozen-lockfile
 bun run check
-bun run build
+bun test
+lazurio module setup <path to the module> --root <Lazurio Folder> --json
 ```
 
-Pokud testy nejdou spustit, napiš do předání přesný důvod.
+The expected `module setup` status is `current`.

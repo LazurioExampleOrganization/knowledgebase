@@ -1,12 +1,10 @@
 # Knowledgebase data v2
 
-Tahle složka je Organization-owned source of truth Knowledgebase v2.
+This directory is the Organization-owned source of truth of the knowledgebase.
 
-- `docs/` drží kanonické Markdown/MDX stránky a případné lokální assets.
-- `public/` drží Organization-owned soubory publikované na stabilních root URL.
-- `sidebar.ts` drží deklarativní navigaci.
-- `knowledgebase.json` identifikuje datový kontrakt.
-- `v2-target.json` deklaruje kontrolovatelný cílový layout a migrační corpusy.
+- `docs/` holds the canonical Markdown or MDX pages, one directory per locale.
+- `public/` holds files published at stable root URLs.
+- `sidebar.ts` holds the declarative navigation.
+- `knowledgebase.json` identifies the data contract.
 
-Aplikační runtime v `app/v2` data pouze čte. Při vědomém fork syncu se
-`data/v2/**` nikdy nepřebírá z template přes vlastní obsah Organizace.
+The App in `app/v2` only reads this data.
