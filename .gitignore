@@ -1,36 +1,11 @@
-# Dependencies
-node_modules
-
-# Build output
-dist
-out
-*.tgz
-
-# Coverage and logs
-coverage
-*.lcov
-logs
-*.log
-report.*.json
-
-# Environment files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# Caches
-.astro
-.cache
-.eslintcache
+node_modules/
+dist/
+.astro/
 *.tsbuildinfo
-
-# Generated knowledgebase artifacts
-app/v1/generated/
-
-# IDE and OS files
-.idea
-.vscode/*
-!.vscode/settings.json
+.env*
+.worktrees/
+coverage/
+*.log
 .DS_Store
+.idea/
+.vscode/

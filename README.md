@@ -1,68 +1,48 @@
----
-title: "AgentMint Knowledgebase"
-description: "Privátní Git-native knowledgebase modul pro AgentMint."
----
+# Knowledgebase
 
-# AgentMint Knowledgebase
+The knowledgebase of **Lazurio Example Organization**, Lazurio's public
+reference Organization. All content is fictional.
 
-`AgentMint Knowledgebase` je privátní knowledgebase modul pro Workspace GEN2.
-Je založený jako upstream-compatible fork repozitáře
-upstream Lazurio knowledgebase šablony a přizpůsobený pro AgentMint.
+It holds the Organization's own durable knowledge: strategy, guardrails,
+lessons learned, decision logic and stable vocabulary. Raw research,
+experiment logs and financial evidence stay in their own modules; this module
+receives the generalised lesson that should outlive a single sprint.
 
-Kanonické knowledge stránky žijí v
-`data/v2/docs`, navigace v `data/v2/sidebar.ts` a root soubory
-slouží jako governance vrstva modulu.
+The module follows the
+[Lazurio Module Standard](https://github.com/HumanAndMachines/Lazurio/blob/main/manual/module-standard.md).
+It is document-native: the pages are Markdown in Git, and the App is a
+read-only viewer.
 
-Do modulu patří jen vlastní znalosti AgentMintu: strategie, guardrails,
-lessons learned, rozhodovací logika a stabilní principy. Surový research,
-experiment logy a finanční evidence zůstávají v příslušných modulech.
+## Layout
 
-## K čemu slouží
+| Path | Holds |
+|---|---|
+| `data/v2/docs/` | The canonical pages, one directory per locale |
+| `data/v2/sidebar.ts` | The navigation |
+| `data/v2/public/` | Files published at stable root URLs |
+| `app/v2/` | The viewer App (Astro and Starlight, TypeScript) |
+| `lazurio.module.json` | Module id, port lease and Apps |
 
-Do knowledgebase patří materiály, které mají být vyšší autoritou než wiki,
-web, prezentace nebo veřejná dokumentace:
+## Run it
 
-- strategie a rozhodnutí
-- doménový slovník a aliasy
-- produktový, servisní nebo delivery model
-- technická a systémová architektura
-- interní operating model
-- case studies, proof points a reusable narrative assets
-- roadmapa, decision log a otevřené otázky
+Start the App through Lazurio, for example `lazurio module start
+LazurioExampleOrganization/knowledgebase`, or open it from the Launchpad. The
+App reads its host and port only from the listener that Lazurio assigns; run
+directly without it, it refuses to start.
 
-## Struktura
+## Develop
 
-- `app/v2/` — Astro/Starlight runtime, který čte Organization-owned data v2
-- `editor/v2/` — lokální Git-native editor server pro `data/v2/docs`
-- `data/v2/docs/cs` — české knowledge stránky
-- `data/v2/docs/en` — anglické knowledge stránky
-- `data/v2/sidebar.ts` — kanonická navigační hierarchie
-- `migrations/v2/` — opakovatelný v1→v2 migrátor, retirement generator a
-  v2-only kontrola pro synchronizace forku
-- `README.md`, `AGENTS.md`, `ARCHITECTURE.md`, `TODO.md` — governance dokumenty
-- `SUMMARY.md` — jen kompatibilní marker pro starší root-based modely
-- `TEMPLATE.md` — poznámky k původu ve šabloně a údržbě forku
-
-## Praktické příkazy
-
-```bash
+```sh
 cd app/v2
-bun install
-bun test
-bun run check
-bun run build
+bun install --frozen-lockfile
+bun run prepare:app   # astro sync: generates the content types
+bun run check         # astro check and biome
+bun test              # content contract and start contract
+bun run build         # static build
 ```
 
-## Pracovní princip
+## Origin
 
-AgentMint kopíruje mechanismy, ne cizí identitu, obsah, účty ani zákaznická
-data. Každý trvalý poznatek má být formulovaný jako vlastní AgentMint princip
-a má odkazovat na zdrojový research, experiment nebo rozhodnutí, pokud z něj
-vznikl.
-
-- jedna kanonická cesta pro knowledge pages
-- Git-native authoring
-- Starlight runtime
-- explicitní sidebar
-- jednoduchý frontmatter contract
-- root governance mimo hlavní page corpus
+The module started from a pre-standard copy of a Lazurio knowledgebase
+template. It has no template upstream: it was converted to the Module
+Standard by hand and is maintained here on its own.

@@ -3,19 +3,13 @@
   "id": "knowledgebase",
   "company": "LazurioExampleOrganization",
   "tcp_port_policy": {
-    "mode": "exception",
-    "reason": "The repository-native editor is a separate local authoring process and therefore requires a second module-owned TCP listener."
+    "mode": "single"
   },
   "port_leases": [
     {
       "id": "main",
       "host": "127.0.0.1",
-      "port": 5286
-    },
-    {
-      "id": "editor",
-      "host": "127.0.0.1",
-      "port": 55286
+      "port": 25300
     }
   ],
   "apps": [

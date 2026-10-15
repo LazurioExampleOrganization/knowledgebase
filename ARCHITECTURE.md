@@ -1,117 +1,73 @@
-# AgentMint Knowledgebase Architecture
+# Knowledgebase architecture
 
-`AgentMint Knowledgebase` definuje architekturu privátní Git-native
-knowledgebase pro AgentMint ve Workspace GEN2.
+## Role
 
-## 1. Architectural role
+The knowledgebase is:
 
-Knowledgebase modul je:
+- the highest authority for the Organization's private know-how;
+- a Git-native documentation module on Astro and Starlight;
+- the source from which wikis, public documentation, the website,
+  presentations or delivery material may be derived.
 
-- nejvyšší autorita pro privátní firemní know-how
-- Git-native docs modul na Astro/Starlight stacku
-- zdroj, ze kterého se mohou odvozovat interní wiki, veřejná dokumentace,
-  web, prezentace nebo delivery materiály
-- authoring i runtime vrstva pro privátní knowledge obsah
+It is not public documentation, a marketing website, a CMS or a database, a
+browser-editable backend outside Git, or a store for secrets, credentials or
+OAuth session data.
 
-Knowledgebase modul není:
+## Source of truth
 
-- veřejná dokumentace
-- marketingový web
-- Firestore nebo CMS datastore
-- browser-editable backend mimo Git
-- skladiště secrets, credentials nebo OAuth session dat
+- Pages: `data/v2/docs/<locale>/`, Markdown or MDX with frontmatter. This is
+  the only page corpus.
+- Navigation: `data/v2/sidebar.ts`.
+- Static files: `data/v2/public/`.
+- Data contract marker: `data/v2/knowledgebase.json`.
 
-## 2. Source of truth
+Root documents (`README.md`, `AGENTS.md`, `ARCHITECTURE.md`, `CHANGELOG.md`)
+describe the module; they are never a second content corpus.
 
-Kanonický source of truth pro knowledge page corpus je:
+## Runtime
 
-- `data/v2/docs/cs`
-- `data/v2/docs/en`
+`app/v2` is the viewer App:
 
-To zahrnuje:
+- Starlight reads the pages through Astro's `glob` loader pointed at
+  `data/v2/docs` (the same loader Starlight uses by default, with a different
+  base), so the content needs no symlink or copy step;
+- `data/v2/sidebar.ts` is the navigation authority and `data/v2/public` is
+  the public directory;
+- the App only reads data. Authoring happens in Git, through pull requests.
 
-- markdown/MDX stránky
-- frontmatter metadata
-- lokalizované varianty
-- obsahové slugy používané v navigaci
+The App follows the Lazurio Module Standard. Its single lease `main` lives in
+`lazurio.module.json`, inside the Organization's port pool. The App reads its
+listener only from `LAZURIO_RUNTIME_LISTENER_APP_*` through
+`@lazurio/module-kit` and refuses to start without it. The preparation is
+`astro sync`; `dev` runs one Astro server. The health path is the default
+locale's index, which answers 200 without a redirect.
 
-Kanonická navigace je:
+## Metadata contract
 
-- `data/v2/sidebar.ts`
+Pages may declare `title` (required), `description`, `status`, `owner`,
+`last_verified`, `confidence`, `source_type`, `source_paths` and `aliases`.
+The metadata serves rendering, search and auditability; it never becomes a
+separate database source of truth.
 
-Root repozitáře drží pouze governance a fork/template dokumenty:
+## Information architecture
 
-- `README.md`
-- `AGENTS.md`
-- `ARCHITECTURE.md`
-- `TODO.md`
-- `TEMPLATE.md`
-- `CHANGELOG.md`
+1. `00-governance/`: authoring rules, lifecycle and the source map.
+2. `01-foundations/`: the company, vocabulary and mission.
+3. `02-product-and-ecosystem/`: the product or service model.
+4. `03-technology-and-architecture/`: technical systems and integrations.
+5. `04-delivery-and-operations/`: delivery, operations and processes.
+6. `05-business-and-market/`: market, customers, positioning and pricing.
+7. `06-company-operating-system/`: roles, tooling, cadence and source systems.
+8. `07-case-studies-and-media/`: references, story assets and proof points.
+9. `08-roadmap-and-decisions/`: focus, decision log and open questions.
 
-Tvrdé pravidlo: knowledge page má mít jen jednu kanonickou obsahovou cestu.
-Nezakládej paralelní root markdown corpus vedle `data/v2/docs`.
+## Invariants
 
-## 3. Runtime model
-
-`app/v2` je Astro/Starlight aplikace, která:
-
-- renderuje privátní knowledgebase
-- přes kontrolovaný data mount čte docs z `data/v2/docs`
-- používá `data/v2/sidebar.ts` jako navigační autoritu
-- drží jednoduchý metadata contract ve frontmatteru
-- v dev režimu umí přes root `launchpad/components/editor/v2` spustit
-  lokální editor pro `data/v2/docs` a `data/v2/sidebar.ts`
-
-Runtime nesmí zavádět druhou authoring kopii mimo Git.
-Listener autoritativně vlastní `lazurio.module.json`; runtime metadata v
-`app/v2/package.json` odkazují na lease `main`. Přímý start čte stejný
-manifest. Volitelné namespacované `LAZURIO_RUNTIME_*` hodnoty od Launchpadu
-musí přesně souhlasit; obecné `HOST`, `PORT` ani `EDITOR_PORT` listener
-nemění. Organization pool slouží pouze k přidělování budoucích lease a
-zavedené app/editor porty automaticky nepřečísluje.
-
-## 4. Metadata contract
-
-Modul podporuje minimální metadata:
-
-- `title`
-- `description`
-- `status`
-- `owner`
-- `last_verified`
-- `confidence`
-- `source_type`
-- `source_paths`
-- `aliases`
-
-Metadata slouží pro rendering, vyhledávání, auditovatelnost a budoucí
-indexaci. Nesmí z nich vzniknout samostatný databázový source of truth.
-
-## 5. Information architecture
-
-Výchozí struktura vychází z ověřeného GEN2 knowledgebase patternu:
-
-1. `00-governance/` — pravidla authoringu, lifecycle a zdrojová mapa
-2. `01-foundations/` — firma, slovník, mise, ekosystém
-3. `02-product-and-ecosystem/` — produktový nebo servisní model
-4. `03-technology-and-architecture/` — technické systémy a integrace
-5. `04-delivery-and-operations/` — delivery, provoz, servis, procesy
-6. `05-business-and-market/` — trh, zákazníci, positioning, pricing
-7. `06-company-operating-system/` — role, tooling, cadence, source systems
-8. `07-case-studies-and-media/` — reference, story assets, proof points
-9. `08-roadmap-and-decisions/` — focus, decision log, otevřené otázky
-
-AgentMint může sekce upravit podle vlastní reality, ale source-of-truth model
-musí zůstat jednoduchý: Git source -> runtime/index/derived surfaces.
-
-## 6. Invariants
-
-- `data/v2/docs` je jediný kanonický page corpus.
-- `data/v2/sidebar.ts` je navigační autorita.
-- Root dokumenty jsou governance, ne knowledge pages.
-- Derived artefakty jsou rebuildable z Git source.
-- Secrets, účty platforem, raw exporty a cizí zákaznická data se do modulu
-  nikdy nedávají.
-- Při adaptaci z jiných firem se přenáší pattern, ne data ani strategie.
-- `migrations/v2` zůstává verzovaný, aby starší fork mohl bezpečně převést v1
-  data, vytvořit retirement record a ověřit jediný aktivní target v2.
+- `data/v2/docs` is the only page corpus and `data/v2/sidebar.ts` the only
+  navigation.
+- Derived artefacts (`.astro/`, `dist/`) are rebuilt from Git and never
+  committed.
+- Secrets, platform accounts, raw exports and third-party customer data never
+  enter the module.
+- When a pattern is adapted from elsewhere, the pattern travels, never the
+  data or the strategy.
