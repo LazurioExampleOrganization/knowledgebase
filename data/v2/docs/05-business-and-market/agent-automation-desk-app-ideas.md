@@ -46,7 +46,7 @@ types repeat and delivery fits within a reasonable time budget.
 ## 1. Agent Automation Desk Portal
 
 Mechanism: a client or internal operator submits a request, attaches context,
-The company puts it in a queue, tracks status, prepares the output, and a human
+the company puts it in a queue, tracks status, prepares the output, and a human
 approves delivery.
 
 Why it makes sense:
