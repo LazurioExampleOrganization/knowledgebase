@@ -1,0 +1,62 @@
+{
+  "name": "agentmint-knowledgebase-v2",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun scripts/run-astro.mjs dev",
+    "build": "bun scripts/run-astro.mjs build",
+    "preview": "bun scripts/run-astro.mjs preview",
+    "prepare:data": "bun scripts/ensure-data-mount.mjs",
+    "check:v2-only": "bun ../../migrations/v2/check-v2-only-target.mjs",
+    "check:mount-contract": "bun scripts/check-gen3-mount-paths.mjs",
+    "test:strict-port": "bun scripts/check-strict-port.mjs",
+    "test:runtime-listener": "bun test ../../runtime-listener.test.mjs",
+    "check:runtime": "bun run check:mount-contract && bun run test:strict-port && bun run test:runtime-listener && bun scripts/run-astro.mjs check",
+    "check": "bun run check:v2-only && bun run check:runtime",
+    "test:app": "bun test ./scripts ./src ../../editor/v2",
+    "test:migration": "bun test ../../migrations/v2",
+    "test": "bun run test:app && bun run test:migration"
+  },
+  "lazurio": {
+    "runtime": {
+      "schema_version": "lazurio.runtime.v1",
+      "id": "agentmint-knowledgebase-v2",
+      "title": "Knowledgebase",
+      "company": "LazurioExampleOrganization",
+      "module": "knowledgebase",
+      "surface": "internal",
+      "dev_script": "dev",
+      "build_script": "build",
+      "preview_script": "preview",
+      "tags": ["knowledgebase", "manual", "gen2-migration"],
+      "listeners": [
+        {
+          "id": "app",
+          "role": "entrypoint",
+          "lease": "main",
+          "protocol": "http",
+          "health": {
+            "kind": "http",
+            "path": "/"
+          }
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/starlight": "0.37.7",
+    "astro": "^5.14.0",
+    "astro-expressive-code": "^0.41.2",
+    "rollup": "npm:@rollup/wasm-node@4.60.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@types/node": "^24.10.1",
+    "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node@4.60.1"
+  }
+}

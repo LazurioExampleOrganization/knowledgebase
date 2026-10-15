@@ -1,0 +1,6 @@
+{
+  "schema_version": "companiesascode.knowledgebase.data.v2",
+  "version": 2,
+  "content_root": "docs",
+  "navigation": "sidebar.ts"
+}
