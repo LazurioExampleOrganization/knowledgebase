@@ -28,7 +28,8 @@ These rules add to the Organization root `AGENTS.md`.
 - Add pages only to `data/v2/docs/`. Every page declares its `title` in
   frontmatter.
 - Keep the navigation in `data/v2/sidebar.ts` by hand; every entry must point
-  at an existing page of the default locale (the tests check it).
+  at an existing page (the tests check it).
+- Write pages in English. The knowledgebase has a single locale.
 - When you change a source-of-truth boundary, update `ARCHITECTURE.md` in the
   same pull request.
 - No machine-specific absolute paths in documents.

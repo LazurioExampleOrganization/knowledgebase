@@ -15,8 +15,8 @@ OAuth session data.
 
 ## Source of truth
 
-- Pages: `data/v2/docs/<locale>/`, Markdown or MDX with frontmatter. This is
-  the only page corpus.
+- Pages: `data/v2/docs/`, Markdown or MDX with frontmatter, in English. This
+  is the only page corpus.
 - Navigation: `data/v2/sidebar.ts`.
 - Static files: `data/v2/public/`.
 - Data contract marker: `data/v2/knowledgebase.json`.
@@ -39,8 +39,9 @@ The App follows the Lazurio Module Standard. Its single lease `main` lives in
 `lazurio.module.json`, inside the Organization's port pool. The App reads its
 listener only from `LAZURIO_RUNTIME_LISTENER_APP_*` through
 `@lazurio/module-kit` and refuses to start without it. The preparation is
-`astro sync`; `dev` runs one Astro server. The health path is the default
-locale's index, which answers 200 without a redirect.
+`astro sync`; `dev` runs one Astro server. The knowledgebase has one locale,
+English, at the root, so the health path `/` answers 200 without a
+redirect.
 
 ## Metadata contract
 

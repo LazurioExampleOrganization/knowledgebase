@@ -11,7 +11,7 @@ export const onRequest = defineRouteMiddleware((ctx) => {
     for (const entry of entries) {
       if (entry.type === "group") {
         const first = entry.entries[0];
-        if (first?.type === "link" && first.label === "Přehled") {
+        if (first?.type === "link" && first.label === "Overview") {
           overviewLabels.set(first.href, entry.label);
         }
         walk(entry.entries);
@@ -21,12 +21,12 @@ export const onRequest = defineRouteMiddleware((ctx) => {
 
   walk(sidebar);
 
-  if (pagination.prev?.label === "Přehled" && pagination.prev.href) {
+  if (pagination.prev?.label === "Overview" && pagination.prev.href) {
     const label = overviewLabels.get(pagination.prev.href);
     if (label) pagination.prev.label = label;
   }
 
-  if (pagination.next?.label === "Přehled" && pagination.next.href) {
+  if (pagination.next?.label === "Overview" && pagination.next.href) {
     const label = overviewLabels.get(pagination.next.href);
     if (label) pagination.next.label = label;
   }

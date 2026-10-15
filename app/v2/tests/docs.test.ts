@@ -5,10 +5,9 @@ import { sidebar } from "../../../data/v2/sidebar";
 
 // The content contract of the knowledgebase: data/v2/docs is the only page
 // corpus, every page declares its title in frontmatter, and every sidebar entry
-// points at a page of the default locale (Starlight falls back to it when a
-// translation is missing).
+// points at an existing page. The knowledgebase has one locale, English, at
+// the root of data/v2/docs.
 const docs = resolve(import.meta.dir, "../../../data/v2/docs");
-const DEFAULT_LOCALE_DIRECTORY = "cs";
 
 type SidebarEntry = { slug?: string; items?: SidebarEntry[] };
 
@@ -28,8 +27,8 @@ function slugs(entries: readonly SidebarEntry[]): string[] {
 }
 
 describe("knowledgebase content", () => {
-  test("has pages in the default locale", () => {
-    expect(pages(join(docs, DEFAULT_LOCALE_DIRECTORY)).length).toBeGreaterThan(0);
+  test("has pages", () => {
+    expect(pages(docs).length).toBeGreaterThan(0);
   });
 
   test("every page declares a title in frontmatter", () => {
@@ -40,9 +39,9 @@ describe("knowledgebase content", () => {
     }
   });
 
-  test("every sidebar slug resolves to a page of the default locale", () => {
+  test("every sidebar slug resolves to a page", () => {
     for (const slug of slugs(sidebar as readonly SidebarEntry[])) {
-      const base = join(docs, DEFAULT_LOCALE_DIRECTORY, slug);
+      const base = join(docs, slug);
       const candidates = [
         `${base}.md`,
         `${base}.mdx`,

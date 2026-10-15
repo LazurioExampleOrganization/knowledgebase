@@ -17,7 +17,7 @@ read-only viewer.
 
 | Path | Holds |
 |---|---|
-| `data/v2/docs/` | The canonical pages, one directory per locale |
+| `data/v2/docs/` | The canonical pages, in English |
 | `data/v2/sidebar.ts` | The navigation |
 | `data/v2/public/` | Files published at stable root URLs |
 | `app/v2/` | The viewer App (Astro and Starlight, TypeScript) |

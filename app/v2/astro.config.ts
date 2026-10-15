@@ -35,18 +35,13 @@ export default defineConfig({
     server: { strictPort: true },
     preview: { strictPort: true },
   },
-  redirects: {
-    "/": "/cs/",
-  },
   integrations: [
     starlight({
       title: "Knowledgebase",
       favicon: "/favicon.svg",
-      locales: {
-        cs: { label: "Čeština", lang: "cs" },
-        en: { label: "English", lang: "en" },
-      },
-      defaultLocale: "cs",
+      // One locale at the root: the index answers 200 itself, which the
+      // Launchpad health probe needs (it does not follow redirects).
+      locales: { root: { label: "English", lang: "en" } },
       sidebar,
       routeMiddleware: "./src/routeData.ts",
       customCss: ["./src/styles/docs.css"],

@@ -3,6 +3,22 @@
 Date versions: `YYYYMMDD`. Several separate notable changes on one day use
 `YYYYMMDD.2`, `YYYYMMDD.3` and so on.
 
+## 20261016.2
+
+### Changed
+
+- The knowledgebase is English only. The Czech locale is removed and the
+  English pages are the single root locale, so `/` answers 200 and is the
+  health path; the `/` → `/cs/` redirect is gone.
+- The sidebar and the pagination labels are English ("Overview").
+- Pages name the Organization "Lazurio Example Organization" and point to the
+  workspace modules in `workspace/`; `TODO.md` is an English status page.
+
+### Removed
+
+- `03-technology-and-architecture/data-platform-history.md`, which existed
+  only in Czech and described template lineage, not the company.
+
 ## 20261016
 
 ### Changed

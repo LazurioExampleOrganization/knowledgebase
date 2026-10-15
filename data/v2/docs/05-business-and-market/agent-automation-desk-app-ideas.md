@@ -7,9 +7,9 @@ last_verified: "2026-05-23"
 confidence: "strategy-hypothesis"
 source_type: "experiment-derived-strategy-brief"
 source_paths:
-  - "AgentMint/modules/experiments/specs/2026-05-23-agent-automation-desk.md"
-  - "AgentMint/modules/experiments/shortlists/2026-05-23-first-monetization-experiments.md"
-  - "AgentMint/modules/experiments/assets/agent-automation-desk-offer.md"
+  - "experiments/specs/2026-05-23-agent-automation-desk.md"
+  - "experiments/shortlists/2026-05-23-first-monetization-experiments.md"
+  - "experiments/assets/agent-automation-desk-offer.md"
   - "https://www.designjoy.co/"
   - "https://www.fiverr.com/resources/guides/costs/ai-automation-experts"
   - "https://www.fiverr.com/resources/guides/reports/freelancing-and-future-of-work-statistics"
@@ -21,7 +21,7 @@ aliases:
   - "first app ideas"
 ---
 
-This brief captures the first app ideas for AgentMint. It builds on the
+This brief captures the company's first app ideas. It builds on the
 **Agent Automation Desk** experiment: a productized agent automation service
 with one active request queue, human approval for external actions, and fast
 delivery of small operational outputs.
@@ -46,7 +46,7 @@ types repeat and delivery fits within a reasonable time budget.
 ## 1. Agent Automation Desk Portal
 
 Mechanism: a client or internal operator submits a request, attaches context,
-AgentMint puts it in a queue, tracks status, prepares the output, and a human
+The company puts it in a queue, tracks status, prepares the output, and a human
 approves delivery.
 
 Why it makes sense:
@@ -82,7 +82,7 @@ Why it makes sense:
 
 - can be used as a lead magnet or paid mini-product
 - filters poor requests before a discovery call
-- teaches AgentMint which processes repeat across customers
+- teaches the company which processes repeat across customers
 - fits the 48h AI ops triage offer
 
 First MVP:
@@ -127,7 +127,7 @@ clients understand the value of the runbook without extra explanation.
 
 ## Evidence and signals
 
-- The AgentMint experiment spec recommends starting with a productized service
+- The company's experiment spec recommends starting with a productized service
   before building SaaS.
 - DesignJoy validates the fixed-fee, request-queue, one-at-a-time delivery
   mechanism as a productized service pattern.

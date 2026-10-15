@@ -1,39 +1,45 @@
-# AgentMint Knowledgebase TODO
+# Knowledgebase status
 
-Tento dokument popisuje aktuální stav knowledgebase modulu.
+This document describes the current state of the knowledgebase module. Plans
+and tasks of the Organization live in Mission Control; this file only lists
+the module's baseline, goals and open content work.
 
 ## Current baseline
 
-- [x] Kanonické stránky žijí v `data/v2/docs`.
-- [x] Navigace žije v `data/v2/sidebar.ts`.
-- [x] Runtime používá Astro/Starlight.
-- [x] Lokální editor server authoruje kanonický docs strom a sidebar přes Git.
-- [x] Root dokumenty drží governance, architekturu a pravidla pro agenty.
-- [x] Modul je napojený na upstream Lazurio knowledgebase šablonu jako
-  `upstream`.
-- [x] v1 runtime byl převeden na jediný target v2; migrační a retirement
-  nástroje zůstávají verzované pro bezpečné fork synchronizace.
+- [x] The canonical pages live in `data/v2/docs`, in English.
+- [x] The navigation lives in `data/v2/sidebar.ts`.
+- [x] The viewer App runs on Astro and Starlight under the Lazurio Module
+  Standard.
+- [x] Authoring happens in Git through pull requests; there is no local editor
+  server.
+- [x] The root documents hold the governance, architecture and agent rules.
+- [x] The module has no template upstream; it is maintained here on its own.
 
 ## Current goals
 
-- Začít plnit AgentMint foundations: mission, glossary, mechanism model a
+- Fill in the company's foundations: mission, glossary, mechanism model and
   guardrails.
-- Přenášet sem až stabilní lessons learned z research a experiment modulů.
-- Zabránit návratu k paralelnímu root markdown corpusu.
-- Držet metadata contract jednoduchý a auditovatelný.
+- Bring in only stable lessons learned from the research and experiment
+  modules.
+- Prevent a return to a parallel root Markdown corpus.
+- Keep the metadata contract simple and auditable.
 
 ## Next
 
-- [ ] Dopsat `00-governance/authoring-standard.md` pro AgentMint statusy a
-  ověřování.
-- [ ] Dopsat `01-foundations/glossary-and-aliases.md` z root `GLOSSARY.md`.
-- [ ] Doplnit první stránku k AgentMint mechanism modelu v
+- [ ] Finish `00-governance/authoring-standard.md` with the company's statuses
+  and verification rules.
+- [ ] Finish `01-foundations/glossary-and-aliases.md` from the root
+  `GLOSSARY.md`.
+- [ ] Add the first page on the company's mechanism model in
   `05-business-and-market/`.
-- [ ] Přidat první decision log entry do `08-roadmap-and-decisions/`.
+- [ ] Add the first decision log entry to `08-roadmap-and-decisions/`.
 
 ## Risks to watch
 
-- Zkopírování cizího brandu, obsahu, zákaznických dat nebo neveřejného know-how.
-- Rozbití vazby mezi sidebar navigací a reálnými docs soubory.
-- Přidání druhé authoring vrstvy mimo Git.
-- Uložení hypotézy jako důkazu bez odkazu na research nebo experiment.
+- Copying another company's brand, content, customer data or non-public
+  know-how.
+- Breaking the link between the sidebar and the real page files (the tests
+  check it).
+- Adding a second authoring layer outside Git.
+- Storing a hypothesis as evidence without a link to research or an
+  experiment.

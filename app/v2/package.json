@@ -48,7 +48,7 @@
           "protocol": "http",
           "health": {
             "kind": "http",
-            "path": "/cs/"
+            "path": "/"
           }
         }
       ]
