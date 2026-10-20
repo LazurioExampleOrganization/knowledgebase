@@ -28,7 +28,9 @@ read-only viewer.
 Start the App through Lazurio, for example `lazurio module start
 LazurioExampleOrganization/knowledgebase`, or open it from the Launchpad. The
 App reads its host and port only from the listener that Lazurio assigns; run
-directly without it, it refuses to start.
+directly without it, it refuses to start. Opened from `main`, Lazurio builds
+the App (`bun run build`) and serves `dist/`; the Astro development server
+runs only for a preview from a worktree or `lazurio module start --dev`.
 
 ## Develop
 
@@ -37,7 +39,7 @@ cd app/v2
 bun install --frozen-lockfile
 bun run prepare:app   # astro sync: generates the content types
 bun run check         # astro check and biome
-bun test              # content contract and start contract
+bun test              # content, start and build contracts
 bun run build         # static build
 ```
 
