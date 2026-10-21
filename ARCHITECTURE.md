@@ -38,10 +38,15 @@ describe the module; they are never a second content corpus.
 The App follows the Lazurio Module Standard. Its single lease `main` lives in
 `lazurio.module.json`, inside the Organization's port pool. The App reads its
 listener only from `LAZURIO_RUNTIME_LISTENER_APP_*` through
-`@lazurio/module-kit` and refuses to start without it. The preparation is
-`astro sync`; `dev` runs one Astro server. The knowledgebase has one locale,
-English, at the root, so the health path `/` answers 200 without a
-redirect.
+`@lazurio/module-kit` and refuses to start without it; the config reads it
+only when Astro serves, never during `astro build`. The preparation is
+`astro sync`. Opened from `main`, the App runs as its static build
+(`build_output: "dist"`, Module Standard 4.5): the Launchpad runs `build`
+(`astro build`, without the listener), serves `dist/` with its own small
+static server and builds again after a pull. `dev` runs one Astro server, for
+a preview from a worktree or an explicit development start. The knowledgebase
+has one locale, English, at the root, so the health path `/` is
+`dist/index.html` and answers 200 without a redirect.
 
 ## Metadata contract
 
