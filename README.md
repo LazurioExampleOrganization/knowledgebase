@@ -32,6 +32,14 @@ directly without it, it refuses to start. Opened from `main`, Lazurio builds
 the App (`bun run build`) and serves `dist/`; the Astro development server
 runs only for a preview from a worktree or `lazurio module start --dev`.
 
+## As an Application
+
+The Organization's apps host `apps-01` serves the App at
+`https://knowledgebase.lazurioexampleorganization.lazurio.app` as a static
+Application. It deploys by itself after a merge to `main`, once the commit's
+`check` run is green (release `on-merge` in the Deployment Repo). Entering it
+takes an application role.
+
 ## Develop
 
 ```sh
