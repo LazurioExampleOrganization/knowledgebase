@@ -40,6 +40,13 @@ Application. It deploys by itself after a merge to `main`, once the commit's
 `check` run is green (release `on-merge` in the Deployment Repo). Entering it
 takes an application role.
 
+The apps host adds Lazurio's shell element to every page it serves
+(`<lazurio-buddy version="production">`, from `/.lazurio/shell.js` on the same
+origin). The element decides from the person's account document what to
+show. The host does not deliver that document yet, so today the element draws
+nothing, even for a person who has Buddy. Once it does, a person without
+Buddy still sees nothing. The Module itself carries nothing for it.
+
 ## Develop
 
 ```sh
