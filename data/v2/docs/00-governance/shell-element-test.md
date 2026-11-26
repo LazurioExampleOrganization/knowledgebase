@@ -13,9 +13,11 @@ aliases:
 live (Lazurio/LazurioPlatform#1244, HumanAndMachine-ai/Machines#1580), and it
 will be removed after the check.
 
-The page carries its own Lazurio shell elements. When the apps host serves it,
-every one of them should announce `version="production"`, keep its other
-attributes, and the host should add no element and no shell script of its own.
+The page carries its own Lazurio shell elements and no shell script. When the
+apps host serves it, every one of its elements should announce
+`version="production"` and keep its other attributes. The host should add no
+element of its own, and exactly one `/.lazurio/shell.js` script, because the
+page has none.
 
 <lazurio-buddy></lazurio-buddy>
 
