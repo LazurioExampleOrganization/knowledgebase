@@ -38,7 +38,10 @@ export const sidebar = [
   },
   {
     label: '06 Company operating system',
-    items: [{ label: 'Overview', slug: '06-company-operating-system' }],
+    items: [
+      { label: 'Overview', slug: '06-company-operating-system' },
+      { label: 'Four-day workweek (approval test)', slug: '06-company-operating-system/four-day-workweek' },
+    ],
   },
   {
     label: '07 Case studies and media',
