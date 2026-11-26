@@ -42,9 +42,10 @@ takes an application role.
 
 The apps host adds Lazurio's shell element to every page it serves
 (`<lazurio-buddy version="production">`, from `/.lazurio/shell.js` on the same
-origin). The element decides from the person's account what to show, and
-draws nothing for a person without Buddy. The Module itself carries nothing
-for it.
+origin). The element decides from the person's account document what to
+show. The host does not deliver that document yet, so today the element draws
+nothing, even for a person who has Buddy. Once it does, a person without
+Buddy still sees nothing. The Module itself carries nothing for it.
 
 ## Develop
 
